@@ -1,7 +1,8 @@
+#![deny(unused_imports)]
+
 use std::env;
 use std::process::Command;
 use std::process::exit;
-use std::process::Output;
 
 struct Changelog {
     repository_path: String,
@@ -36,9 +37,7 @@ impl Changelog {
                 .current_dir(&self.repository_path)
                 .output()
                 .unwrap_or_else(|e| panic!("Failed to run 'git log' with error: {}", e));
-        unsafe {
-            String::from_utf8_unchecked(output.stdout)
-        }
+        String::from_utf8_lossy(&output.stdout).into_owned()
     }
 
     fn range(&self) -> String {
