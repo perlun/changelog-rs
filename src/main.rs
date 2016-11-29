@@ -7,7 +7,8 @@ use std::process::exit;
 struct Changelog {
     repository_path: String,
     from_revision: String,
-    to_revision: String
+    to_revision: String,
+    foo: String
 }
 
 impl Changelog {
