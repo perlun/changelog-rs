@@ -36,12 +36,9 @@ impl GitTagParser {
     // tags that is sorted in the wrong order. We want them in the order that they exist in the repo.
     fn get_tags_args() -> Vec<String> {
         [
-            "log",
-            "--oneline",
-            "--decorate",
-            "--no-walk",
-            "--tags",
-            "--pretty=%D"
+            "for-each-ref",
+            "--format=%(refname)",
+            "refs/tags/*"
         ].iter().map(|e| e.to_string()).collect()
     }
 
@@ -56,12 +53,10 @@ impl GitTagParser {
 
         output_lines.map(|e|
             e.to_string()
-              .split(':')
-              .last()
-              .unwrap()
+              .replace("refs/tags/", "")
               .trim()
               .to_string()
-        ).collect()
+        ).rev().collect()
     }
 
     fn get_root_ancestor(&self) -> String {
