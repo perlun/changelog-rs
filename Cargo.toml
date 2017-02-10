@@ -2,6 +2,9 @@
 name = "changelog-rs"
 version = "0.1.0"
 authors = ["Per Lundberg <perlun@gmail.com>"]
+description = "Generates CHANGELOG.md files based on git commit and tag information."
+license = "MIT"
+homepage = "https://github.com/perlun/changelog-rs"
 
 [dependencies]
 semver = "0.5.0"
