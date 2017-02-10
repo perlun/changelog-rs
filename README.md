@@ -17,17 +17,33 @@ history of how it looked like before merging, including the individual commits).
 If you are stuck on "traditional" merge mode in your projects, you can still use the tool. It's just that its output will be less
 readable because of all the individual commits that are retained + one extra merge commit for every single PR.
 
-## How to run
+## Prerequisites
+
+## How to install
+
+```shell
+$ cargo install changelog-rs
+```
+
+You will then have a `changelog-rs` in your path which you can run like this:
+
+```shell
+# If you want to generate a changelog entry for a particular version (from-revision and to-revision can be any git ref, i.e. a tag
+# or a git commit SHA etc.
+$ changelog-rs <repo> <from-revision> <to-revision>
+
+# If you want to generate changelog entries for all versions that are tagged with SemVer compliant tags.
+$ changelog-rs <repo>
+```
+
+## How to build and run
 
 ```shell
 # This downloads the rust toolchain. You can omit this step if you already have a suitable Rust version installed.
 curl https://sh.rustup.rs -sSf | sh
 
-# If you want to generate a changelog entry for a particular version (from-revision and to-revision can be any git ref, i.e. a tag
-# or a git commit SHA etc.
+# Same parameter modes as above can be used.
 cargo run <repo> <from-revision> <to-revision>
-
-# If you want to generate changelog entries for all versions that are tagged with SemVer compliant tags.
 cargo run <repo>
 ```
 
