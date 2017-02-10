@@ -22,13 +22,15 @@ impl ChangelogGenerator {
             match lines_iterator.next() {
                 Some(line) => {
                     if line.is_empty() {
-                        return;
+                        break;
                     }
                     println!("* {}", line)
                 }
                 None => break,
             }
         }
+
+        print!("\n");
     }
 
     fn get_log_output(&self) -> String {

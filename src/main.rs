@@ -29,7 +29,6 @@ fn main() {
                 to_revision: to_tag
             };
             generator.generate_changelog();
-            print!("\n");
         }
     } else if args.len() == 4 {
         let generator = ChangelogGenerator {
