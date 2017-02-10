@@ -26,7 +26,7 @@ impl GitTagParser {
 
     fn semver_tags(&self) -> Vec<String> {
         let tags = self.get_tags();
-        tags.into_iter().filter(|e| match Version::parse(e) {
+        tags.into_iter().filter(|e| match Version::parse(e.replace("v", "").as_str()) {
             Ok(_) => true,
             Err(_) => false
         }).collect()
