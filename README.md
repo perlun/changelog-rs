@@ -19,7 +19,10 @@ readable because of all the individual commits that are retained + one extra mer
 
 ## Prerequisites
 
-A `rust` compiler: `curl https://sh.rustup.rs -sSf | sh`
+```shell
+# This downloads the rust toolchain. You can omit this step if you already have a suitable Rust version installed.
+curl https://sh.rustup.rs -sSf | sh
+```
 
 ## How to install
 
