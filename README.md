@@ -44,9 +44,6 @@ $ changelog-rs <repo>
 ## How to build and run
 
 ```shell
-# This downloads the rust toolchain. You can omit this step if you already have a suitable Rust version installed.
-curl https://sh.rustup.rs -sSf | sh
-
 # Same parameter modes as above can be used.
 cargo run <repo> <from-revision> <to-revision>
 cargo run <repo>
