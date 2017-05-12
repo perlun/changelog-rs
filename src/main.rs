@@ -6,6 +6,7 @@ extern crate clap;
 
 mod changelog_generator;
 mod git_tag_parser;
+mod git_tag;
 
 use clap::{App, Arg};
 use changelog_generator::ChangelogGenerator;
