@@ -8,3 +8,4 @@ homepage = "https://github.com/perlun/changelog-rs"
 
 [dependencies]
 semver = "0.5.0"
+clap = "2"
