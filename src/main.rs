@@ -25,11 +25,17 @@ fn main() {
                           .arg(Arg::with_name("TO_REVISION")
                               .help("The ending revision (the current/latter SemVer version).")
                               .index(3))
+                          .arg(Arg::with_name("latest")
+                              .long("latest")
+                              .help("Generate the changelog for the latest version only"))
                           .get_matches();
 
     let repository_path = String::from(matches.value_of("REPOSITORY_PATH").unwrap_or("."));
 
-    if matches.is_present("FROM_REVISION") && matches.is_present("TO_REVISION") {
+    if matches.is_present("latest") {
+        generate_latest_version_changelog_for_folder(repository_path);
+    }
+    else if matches.is_present("FROM_REVISION") && matches.is_present("TO_REVISION") {
         let from_revision = String::from(matches.value_of("FROM_REVISION").unwrap());
         let to_revision = String::from(matches.value_of("TO_REVISION").unwrap());
 
@@ -41,11 +47,11 @@ fn main() {
         generator.generate_changelog();
     }
     else {
-        generate_changelog_for_folder(repository_path);
+        generate_full_changelog_for_folder(repository_path);
     }
 }
 
-fn generate_changelog_for_folder(repository_path: String) {
+fn generate_full_changelog_for_folder(repository_path: String) {
     let git_tag_parser = GitTagParser {
         repository_path: repository_path.clone()
     };
@@ -60,4 +66,23 @@ fn generate_changelog_for_folder(repository_path: String) {
         };
         generator.generate_changelog();
     }
+}
+
+fn generate_latest_version_changelog_for_folder(repository_path: String) {
+    let git_tag_parser = GitTagParser {
+        repository_path: repository_path.clone()
+    };
+
+    // Not the most intelligent algorithm in the world (getting all the tag pairs and then throwing away all but the first), but
+    // for reasonable number of tags this shouldn't be a big performance impact overall.
+    let version_tag_pairs = git_tag_parser.get_version_tag_pairs();
+    let latest_tag_pair = version_tag_pairs.first().unwrap();
+    let &(ref from_tag, ref to_tag) = latest_tag_pair;
+
+    let generator = ChangelogGenerator {
+        repository_path: repository_path.clone(),
+        from_revision: from_tag.clone(),
+        to_revision: to_tag.clone()
+    };
+    generator.generate_changelog();
 }
