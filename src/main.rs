@@ -13,7 +13,7 @@ use git_tag_parser::GitTagParser;
 
 fn main() {
     let matches = App::new("changelog-rs")
-                          .version("0.1.0")
+                          .version("0.2.0")
                           .author("Per Lundberg <pelrun@gmail.com>")
                           .about("Trivial Rust-based CHANGELOG.md generation tool")
                           .arg(Arg::with_name("REPOSITORY_PATH")
