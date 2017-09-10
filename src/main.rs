@@ -28,6 +28,10 @@ fn main() {
                           .arg(Arg::with_name("latest")
                               .long("latest")
                               .help("Generate the changelog for the latest version only"))
+                          .arg(Arg::with_name("to-alias")
+                              .long("to-alias")
+                              .takes_value(true)
+                              .help("Revision to show in place of TO_REVISION (e.g. a tag about to be created)"))
                           .get_matches();
 
     let repository_path = String::from(matches.value_of("REPOSITORY_PATH").unwrap_or("."));
@@ -38,11 +42,13 @@ fn main() {
     else if matches.is_present("FROM_REVISION") && matches.is_present("TO_REVISION") {
         let from_revision = String::from(matches.value_of("FROM_REVISION").unwrap());
         let to_revision = String::from(matches.value_of("TO_REVISION").unwrap());
+        let to_alias = matches.value_of("to-alias").map_or(to_revision.clone(), String::from);
 
         let generator = ChangelogGenerator {
             repository_path: repository_path,
             from_revision: from_revision,
-            to_revision: to_revision
+            to_revision: to_revision,
+            to_alias: to_alias
         };
         generator.generate_changelog();
     }
@@ -62,7 +68,8 @@ fn generate_full_changelog_for_folder(repository_path: String) {
         let generator = ChangelogGenerator {
             repository_path: repository_path.clone(),
             from_revision: from_tag,
-            to_revision: to_tag
+            to_revision: to_tag.clone(),
+            to_alias: to_tag.clone()
         };
         generator.generate_changelog();
     }
@@ -82,7 +89,8 @@ fn generate_latest_version_changelog_for_folder(repository_path: String) {
     let generator = ChangelogGenerator {
         repository_path: repository_path.clone(),
         from_revision: from_tag.clone(),
-        to_revision: to_tag.clone()
+        to_revision: to_tag.clone(),
+        to_alias: to_tag.clone()
     };
     generator.generate_changelog();
 }
