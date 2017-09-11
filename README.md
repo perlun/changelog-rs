@@ -1,3 +1,5 @@
+![Crates badge](https://img.shields.io/crates/v/changelog-rs.svg)
+
 # changelog-rs
 
 Trivial Rust-based CHANGELOG.md generation tool. The program uses git metadata (tags and commit messages) to generate the
