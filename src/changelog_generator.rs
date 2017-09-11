@@ -3,7 +3,8 @@ use std::process::Command;
 pub struct ChangelogGenerator {
     pub repository_path: String,
     pub from_revision: String,
-    pub to_revision: String
+    pub to_revision: String,
+    pub to_alias: String
 }
 
 impl ChangelogGenerator {
@@ -12,11 +13,11 @@ impl ChangelogGenerator {
         let lines = ChangelogGenerator::get_lines_from(&output);
         let mut lines_iterator = lines.iter();
 
-        println!("## {}", self.to_revision);
+        println!("## {}", self.to_alias);
         print!("[Full Changelog](https://github.com/{}/compare/{}...{})\n\n",
                self.get_repo_slug(),
                self.from_revision,
-               self.to_revision);
+               self.to_alias);
 
         loop {
             match lines_iterator.next() {
