@@ -12,27 +12,28 @@ use changelog_generator::ChangelogGenerator;
 use git_tag_parser::GitTagParser;
 
 fn main() {
-    let matches = App::new("changelog-rs")
-                          .version("0.3.0")
-                          .author("Per Lundberg <perlun@gmail.com> and others")
-                          .about("Trivial Rust-based CHANGELOG.md generation tool")
-                          .arg(Arg::with_name("REPOSITORY_PATH")
-                               .help("Sets the path of the repository to generate the changelog for. Defaults to the current directory.")
-                               .index(1))
-                          .arg(Arg::with_name("FROM_REVISION")
-                              .help("The starting revision (usually the previous SemVer version).")
-                              .index(2))
-                          .arg(Arg::with_name("TO_REVISION")
-                              .help("The ending revision (the current/latter SemVer version).")
-                              .index(3))
-                          .arg(Arg::with_name("latest")
-                              .long("latest")
-                              .help("Generate the changelog for the latest version only"))
-                          .arg(Arg::with_name("to-alias")
-                              .long("to-alias")
-                              .takes_value(true)
-                              .help("Revision to show in place of TO_REVISION (e.g. a tag about to be created)"))
-                          .get_matches();
+    let matches =
+        App::new("changelog-rs")
+            .version("0.3.0")
+            .author("Per Lundberg <perlun@gmail.com> and others")
+            .about("Trivial Rust-based CHANGELOG.md generation tool")
+            .arg(Arg::with_name("REPOSITORY_PATH")
+                .help("Sets the path of the repository to generate the changelog for. Defaults to the current directory.")
+                .index(1))
+            .arg(Arg::with_name("FROM_REVISION")
+                .help("The starting revision (usually the previous SemVer version).")
+                .index(2))
+            .arg(Arg::with_name("TO_REVISION")
+                .help("The ending revision (the current/latter SemVer version).")
+                .index(3))
+            .arg(Arg::with_name("latest")
+                .long("latest")
+                .help("Generate the changelog for the latest version only"))
+            .arg(Arg::with_name("to-alias")
+                .long("to-alias")
+                .takes_value(true)
+                .help("Revision to show in place of TO_REVISION (e.g. a tag about to be created)"))
+            .get_matches();
 
     let repository_path = String::from(matches.value_of("REPOSITORY_PATH").unwrap_or("."));
 
