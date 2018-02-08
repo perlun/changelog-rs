@@ -2,8 +2,13 @@ use std::process::Command;
 
 pub struct ChangelogGenerator {
     pub repository_path: String,
+
+    // A git revision. Example value: v8.1.0
     pub from_revision: String,
+
+    // A git revision. Example value: v8.1.1
     pub to_revision: String,
+
     pub to_alias: String
 }
 

@@ -1,6 +1,8 @@
 use semver::Version;
 use std::process::Command;
 
+use git_tag::GitTag;
+
 pub struct GitTagParser {
     pub repository_path: String
 }
@@ -10,9 +12,13 @@ impl GitTagParser {
     // tag, the "to" revision is the current semver tag.
     pub fn get_version_tag_pairs(&self) -> Vec<(String, String)> {
         let mut from_version = self.get_root_ancestor();
-        let mut tag_pairs: Vec<(String, String)> = self.semver_tags().into_iter().rev().map(|tag| {
+
+        let mut tags = self.semver_tags();
+        tags.sort();
+
+        let mut tag_pairs: Vec<(String, String)> = tags.into_iter().map(|tag| {
             let old_from_version = from_version.clone();
-            let to_version = tag;
+            let to_version = tag.tag;
             from_version = to_version.clone();
 
             (old_from_version, to_version)
@@ -24,12 +30,16 @@ impl GitTagParser {
         tag_pairs
     }
 
-    fn semver_tags(&self) -> Vec<String> {
+    fn semver_tags(&self) -> Vec<GitTag> {
         let tags = self.get_tags();
-        tags.into_iter().filter(|e| match Version::parse(e.replace("v", "").as_str()) {
-            Ok(_) => true,
-            Err(_) => false
-        }).collect()
+        tags
+            .into_iter()
+            .filter(|tag| Version::parse(tag.replace("v", "").as_str()).is_ok())
+            .map(|tag| GitTag {
+                tag: tag.clone(),
+                version: Version::parse(tag.replace("v", "").as_str()).ok().unwrap()
+            })
+            .collect()
     }
 
     // A lot of parameters to this one. 'git tag -l' is much simpler, but the problem is that it produces a list of
