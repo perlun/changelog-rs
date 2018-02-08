@@ -1,6 +1,6 @@
 [package]
 name = "changelog-rs"
-version = "0.3.0"
+version = "0.3.1"
 authors = ["Per Lundberg <perlun@gmail.com>"]
 description = "Generates CHANGELOG.md files based on git commit and tag information."
 license = "MIT"
