@@ -24,7 +24,8 @@ readable because of all the individual commits that are retained + one extra mer
 ## Prerequisites
 
 ```shell
-# This downloads the rust toolchain. You can omit this step if you already have a suitable Rust version installed.
+# This downloads the rust toolchain. You can omit this step if you already have a suitable Rust
+# version installed.
 curl https://sh.rustup.rs -sSf | sh
 ```
 
@@ -37,8 +38,8 @@ $ cargo install changelog-rs
 You will then have a `changelog-rs` in your path which you can run like this:
 
 ```shell
-# If you want to generate a changelog entry for a particular version (from-revision and to-revision can be any git ref, i.e. a tag
-# or a git commit SHA etc.
+# If you want to generate a changelog entry for a particular version (from-revision and to-revision can
+# be any git ref, i.e. a tag or a git commit SHA etc.
 $ changelog-rs <repo> <from-revision> <to-revision>
 
 # If you want to generate changelog entries for all versions that are tagged with SemVer compliant tags.
