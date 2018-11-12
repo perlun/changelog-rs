@@ -29,22 +29,33 @@ readable because of all the individual commits that are retained + one extra mer
 curl https://sh.rustup.rs -sSf | sh
 ```
 
-## How to install
+## How to install and use the tool
 
 ```shell
 $ cargo install changelog-rs
 ```
 
-You will then have a `changelog-rs` in your path which you can run like this:
+You will then have a `changelog-rs` executable in your path which you can run like this:
 
-```shell
-# If you want to generate a changelog entry for a particular version (from-revision and to-revision can
-# be any git ref, i.e. a tag or a git commit SHA etc.
-$ changelog-rs <repo> <from-revision> <to-revision>
+* Generate the changelog for the current folder, for the last version (latest `HEAD` revision should preferably have a SemVer-compliant tag.)
 
-# If you want to generate changelog entries for all versions that are tagged with SemVer compliant tags.
-$ changelog-rs <repo>
-```
+  ```shell
+  $ changelog-rs --latest
+  ```
+
+* If you want to generate a changelog entry for a particular version (from-revision and to-revision can be any git ref, i.e. a tag or a git commit SHA etc.
+
+  ```shell
+  $ changelog-rs <repo> <from-revision> <to-revision>
+  ```
+
+* If you want to generate changelog entries for all versions that are tagged with SemVer compliant tags (`<repo>` defaults to current directory if not provided):
+
+   ```
+   $ changelog-rs <repo>
+   ```
+   
+You can get more usage help like this: `changelog-rs --help`
 
 ## How to build and run
 
